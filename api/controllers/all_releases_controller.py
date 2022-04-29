@@ -10,8 +10,15 @@ with open("neo4j.yaml", "r") as neo4j_file:
 
 
 def all_db_imgt():
-    query = " MATCH(n: IMGT_HLA)-[e: HAS_FEATURE]-(feat:FEATURE)" \
-            + "RETURN DISTINCT e.imgt_release AS HLA_DB ORDER BY e.imgt_release DESC"
+    query = """
+    MATCH(g:GFE)-[e:HAS_WHO]-(w:WHO) 
+	    WITH COLLECT(DISTINCT e.releases) AS releases 
+	    UNWIND REDUCE(output=[], r IN releases| output + r) as dbs 
+	    RETURN COLLECT(DISTINCT dbs) as HLA_DB_VERSIONS
+        ORDER BY HLA_DB_VERSIONS DESC
+    """
+    # query = " MATCH(n: IMGT_HLA)-[e: HAS_FEATURE]-(feat:FEATURE)" \
+    #         + "RETURN DISTINCT e.imgt_release AS HLA_DB ORDER BY e.imgt_release DESC"
     return query
 
 

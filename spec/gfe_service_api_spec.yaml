@@ -14,14 +14,12 @@ basePath: /v1
 tags:
   - name: IMGT
     description: "Available IMGT DB releases"
-  - name: "Sequence Annotation"
-    description: "Annotation by sequence"
-  - name: Features
-    description: "Features associated with a locus"
   - name: GFE
     description: Create and Retrieve GFE
-  - name: "KIR By GFE"
-    description: "Return Kir response by GFE"
+  - name: Features
+    description: "Features associated with a locus"
+  - name: "Sequence Annotation"
+    description: "Annotation by sequence"
 paths:
   /imgt-versions:
     get:
